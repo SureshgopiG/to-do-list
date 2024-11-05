@@ -5,11 +5,8 @@ function App() {
   const [tasks,setTasks]=useState([]);
   const [task,setTask]=useState('');
 
-  const addTask=()=>{
-    if(task){
-      setTasks([...tasks,{text:task,completed:false}]);
-      setTasks('');
-    }
+  const addTask=(e)=>{
+    setTask(e.target.value)
   };
 
   const deleteTask=(index)=>{
@@ -19,7 +16,7 @@ function App() {
 
   const taskCompelted=(index)=>{
     const newTasks=tasks.map((task,i)=>
-      i===index ? {...task,completed:!taskCompelted}:task);
+      i===index ? {...task,completed:!task.Compelted}:task);
     setTasks(newTasks);
   };
 
@@ -27,10 +24,15 @@ function App() {
   return (
     <div className="App">
       <h1>To Do List</h1>
-      <div className='input'>
-      <input type="text" value={task} onChange={(e)=>setTask(e.target.value)} placeholder='Add Task'/>
-    <button onClick={addTask}>Add</button>
+      <form onSubmit={addTask}>
+      <div className='input-section'>
+      <input type="text" placeholder='Add new  Task'/>
+    <button >Add</button>
+    
   </div>
+  </form>
+  <h2>{task}</h2>
+  
     <ul className='task'>
       {Array.isArray(tasks) && tasks.map((task,index)=>
       (
